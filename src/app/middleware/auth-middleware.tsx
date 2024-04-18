@@ -6,22 +6,24 @@ const UseAuth = () => {
   const router = useRouter();
   const { pathname } = window.location;
   useEffect(() => {
-    const token = localStorage.getItem('twc-token');
-    const isFirstContact = localStorage.getItem("is-first-contact");
+    if (typeof window !== 'undefined') {
+      const { pathname } = window.location;
+      const token = localStorage.getItem('twc-token');
+      const isFirstContact = localStorage.getItem("is-first-contact");
 
-    if (!token && pathname !== '/login') {
-      router.push('/login');
+      if (!token && pathname !== '/login') {
+        router.push('/login');
+      }
+
+      if (token && pathname === '/login') {
+        router.push('/');
+      }
+
+      if (isFirstContact && pathname === '/') {
+        router.push('/contacts');
+      }
     }
-
-    if (token && pathname === '/login') {
-      router.push('/');
-    }
-
-    if(isFirstContact && pathname === '/') {
-      router.push('/contacts');
-    }
-
-  }, [pathname]);
+  }, []);
 
   return null; 
 };
