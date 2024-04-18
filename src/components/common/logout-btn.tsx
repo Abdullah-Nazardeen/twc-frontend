@@ -8,9 +8,11 @@ const LogoutBtn = () => {
   const router = useRouter();
 
   const logout = () => {
-    localStorage.removeItem("twc-userId");
-    localStorage.removeItem("twc-token");
-    router.replace("/login");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("twc-userId");
+      localStorage.removeItem("twc-token");
+      router.replace("/login");
+    }
   };
 
   return (

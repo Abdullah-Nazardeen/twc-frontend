@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TitleText from "@/components/common/title-text";
 import CustomButton from "@/components/common/custom-button";
 import CustomInput from "@/components/common/custom-input";
@@ -10,9 +10,15 @@ import { fetchWithAuthorization } from "@/lib/http-helper";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
-
   const router = useRouter();
-  const isFirstContact = localStorage.getItem("is-first-contact");
+  const [isFirstContact, setIsFirstContact] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedIsFirstContact = localStorage.getItem("is-first-contact");
+      setIsFirstContact(storedIsFirstContact);
+    }
+  }, []);
 
   const [contactData, setContactData] = useState<{
     fullName: string;
@@ -44,7 +50,7 @@ const Page = () => {
   });
 
   const createContact = () => {
-    if(!isFirstContact) {
+    if (!isFirstContact && typeof window !== "undefined") {
       localStorage.setItem("is-first-contact", "false");
     }
 
@@ -153,7 +159,9 @@ const Page = () => {
           handleClick={createContact}
           className="text-xl"
         >
-          {isFirstContact === "false" ? "add contact" : "add your first contact"}
+          {isFirstContact === "false"
+            ? "add contact"
+            : "add your first contact"}
         </CustomButton>
       </div>
     </div>

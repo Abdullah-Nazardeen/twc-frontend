@@ -33,20 +33,20 @@ const Login = ({
       }),
     onSuccess: (data) => {
       localStorage.setItem("twc-token", data.token);
-      if(data.newUser) {
-        router.push("/")
+      if (data.newUser) {
+        router.push("/");
       } else {
-        router.push("/contacts")
+        router.push("/contacts");
       }
     },
     onError: (err) => {
-      console.log("Error login", err)
-      alert("Invalid credentials")
-    }
+      console.log("Error login", err);
+      alert("Invalid credentials");
+    },
   });
 
   const handleLogin = () => {
-    if(isValidEmail(loginData.email)) {
+    if (isValidEmail(loginData.email)) {
       mutateAsync({
         email: loginData.email,
         password: loginData.password,
@@ -54,7 +54,6 @@ const Login = ({
     } else {
       alert("Please enter valid email address");
     }
-    
   };
 
   return (
