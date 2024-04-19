@@ -291,7 +291,7 @@ const CustomTable = ({ columns, data }: PropTypes) => {
       >
         <div className="flex flex-col justify-start items-center gap-8 py-6 px-10">
           <p className="text-lg font-semibold text-[#083F46]">
-            Your contact has been deleted successfully!
+            Your contact has been saved successfully!
           </p>
           <CustomButton
             className="text-white text-lg"
